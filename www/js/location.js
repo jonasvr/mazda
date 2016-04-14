@@ -23,8 +23,8 @@ var onSuccess = function(position) {
           current.lat  = current.lat.toFixed(6)
           current.long   = position.coords.longitude;
           current.long  = current.long.toFixed(6)
-          console.log(position.coords.longitude);
-          console.log(position.coords.latitude);
+        //   console.log(position.coords.longitude);
+        //   console.log(position.coords.latitude);
           alert('Latitude: '          + current.lat        + '\n' +
                 'Longitude: '         + current.long        + '\n');
 };
@@ -67,7 +67,7 @@ function checkLocations(){
             alert(key + ' is in range \n' +
                 dis
                     );
-                    fadeOut();
+                    fadeOut(song2.duration);
                     song2.media.play();
             value.played = 1;
             return false;
@@ -77,7 +77,7 @@ function checkLocations(){
 
 
 function locate(){
-    $.each( locations, function( key, value ) {
+                    $.each( locations, function( key, value ) {
         var dis = distance(current.lat,current.long,value.lat,value.long,'K');
             alert(key + ' \n' + dis + ' km');
     });

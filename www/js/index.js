@@ -1,5 +1,8 @@
 var song1 = null;
 var song2 = {duration:null,media:null};
+var song3 = {duration:null,media:null};
+
+
 var time = 4000;
 
 //volume control
@@ -43,7 +46,7 @@ var app = {
         });
         $("#play2").click(function(){
             $("#info").html('test');
-            fadeOut();
+            fadeOut(song2.duration);
             song2.media.play();
             console.log(song2.media.statusCallback());
         });
@@ -67,6 +70,9 @@ var app = {
         $("#dis").click(function(){
             checkLocations();
         });
+        $("#weer").click(function(){
+            watZegtDeBoosere();
+        });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -80,57 +86,3 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
-
-//song functions
-function loadSong(){
-    // console.log("load");
-    song1 = new Media("shout.mp3",
-        // success callback
-        function () {
-            console.log("playAudio():Audio Success");
-        },
-        // error callback
-        function (err) {
-            console.log("playAudio():Audio Error: " + err);
-        }
-    );
-    song2.media = new Media("feel.mp3",
-        // success callback
-        function () {
-            console.log("playAudio():Audio Success");
-        },
-        // error callback
-        function (err) {
-            console.log("playAudio():Audio Error: " + err);
-        }
-    );
-    song2.duration = 4000;
-}
-function fadeOut(){
-    var fadingout = setInterval(do_fout, 100);
-
-        function do_fout() {
-            if (volume > 0) {
-                volume = volume - fadeStep;
-                song1.setVolume(volume);  // media is your audio object
-            }
-           else {
-               clearInterval(fadingout);
-               var fadeI = setTimeout(fadeIn, song2.duration-fadeseconds*1000);
-           }
-        }
-}
-function fadeIn(){
-    console.log('fading in');
-    var fadingin = setInterval(do_fin, 100);
-
-        function do_fin() {
-            if (volume < 1) {
-                volume = volume + fadeStep;
-                song1.setVolume(volume);  // media is your audio object
-            }
-           else {
-               clearInterval(fadingin);
-           }
-        }
-}
