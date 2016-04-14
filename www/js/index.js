@@ -1,14 +1,11 @@
-var song1 = new Media("file:///android_asset/www/audio/shot.mp3",
-    // success callback
-    function () {
-        console.log("playAudio():Audio Success");
-    },
-    // error callback
-    function (err) {
-        console.log("playAudio():Audio Error: " + err);
-    }
-);
-var song2 = null;
+var song1 = null;
+var song2 = {duration:null,media:null};
+var time = 4000;
+
+var volume = 1.0;
+var fadeseconds=3;  // number of fadeSeconds
+var fadeStep = 1 / (fadeseconds * 10);
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -20,8 +17,6 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     },
     // deviceready Event Handler
     //
@@ -29,37 +24,40 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        console.log('test');
-        // console.log(getCordovaPath());
-        console.log("test2");
+        loadSong();
+
         $("#load").click(function(){
             loadSongs();
         });
         $("#play").click(function(){
-            console.log("play");
-            console.log(song1);
+            $("#info").html("PLAY 1");
             song1.play();
         });
         $("#play2").click(function(){
-            console.log('play2');
-            console.log(song2);
-            song2.play();
+            $("#info").html('test');
+            fadeOut();
+            song2.media.play();
+            console.log(song2.media.statusCallback());
         });
 
         $("#stop").click(function(){
-            console.log("stop");
             song1.stop();
+            song2.media.stop();
         });
 
-        $("#dur").click(function(){
-            // $("#info").html(song1.getDuration());
-            $("#info").html("test");
+        $("#dim").click(function(){
+            volume -=0.1;
+               song1.setVolume(volume);
+
+            console.log('dim');
         });
 
-        $("#tst").click(function(){
-            loadSong();
-            $("#info").html(getPhoneGapPath());
+        $("#up").click(function(){
+            volume +=0.1;
+               song1.setVolume(volume);
         });
+
+
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -75,8 +73,8 @@ var app = {
 };
 
 function loadSong(){
-
-    song2 = new Media("file://www/audio/shout.mp3",
+    // console.log("load");
+    song1 = new Media("shout.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -86,26 +84,45 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    console.log(song1);
-    console.log(song2);
+    song2.media = new Media("feel.mp3",
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    song2.duration = 4000;
 }
 
-function fail() {
-    console.log("failed to get filesystem");
+function fadeOut(){
+    var fadingout = setInterval(do_fout, 100);
+
+        function do_fout() {
+            if (volume > 0) {
+                volume = volume - fadeStep;
+                song1.setVolume(volume);  // media is your audio object
+            }
+           else {
+               clearInterval(fadingout);
+               var fadeI = setInterval(fadeIn, song2.duration-fadeseconds*1000);
+           }
+        }
 }
 
-function gotFS(fileSystem) {
-    console.log("got filesystem");
 
-        // save the file system for later access
-    console.log(fileSystem.root.fullPath);
-    window.rootFS = fileSystem.root;
+function fadeIn(){
+    var fadingin = setInterval(do_fin, 100);
+
+        function do_fin() {
+            if (volume < 1) {
+                volume = volume + fadeStep;
+                song1.setVolume(volume);  // media is your audio object
+            }
+           else {
+               clearInterval(fadingin);
+           }
+        }
 }
-
-// function getPhoneGapPath() {
-//
-// var path = window.location.pathname;
-// path = path.substr( path, path.length - 10 ); //strip off index.html
-// return 'file://' + path;
-//
-// };
