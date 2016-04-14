@@ -25,7 +25,6 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         loadSong();
-
         $("#load").click(function(){
             loadSongs();
         });
@@ -39,23 +38,24 @@ var app = {
             song2.media.play();
             console.log(song2.media.statusCallback());
         });
-
         $("#stop").click(function(){
             song1.stop();
             song2.media.stop();
         });
-
         $("#dim").click(function(){
             volume -=0.1;
                song1.setVolume(volume);
 
             console.log('dim');
         });
-
         $("#up").click(function(){
             volume +=0.1;
                song1.setVolume(volume);
         });
+        $("#loc").click(function(){
+
+        });
+
 
 
     },
@@ -107,13 +107,14 @@ function fadeOut(){
             }
            else {
                clearInterval(fadingout);
-               var fadeI = setInterval(fadeIn, song2.duration-fadeseconds*1000);
+               var fadeI = setTimeout(fadeIn, song2.duration-fadeseconds*1000);
            }
         }
 }
 
 
 function fadeIn(){
+    console.log('fading in');
     var fadingin = setInterval(do_fin, 100);
 
         function do_fin() {
@@ -123,6 +124,7 @@ function fadeIn(){
             }
            else {
                clearInterval(fadingin);
+            //    clearInterval(fadeI);
            }
         }
 }
