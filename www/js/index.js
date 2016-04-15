@@ -1,14 +1,11 @@
 var song1 = null;
 var song2 = {duration:null,media:null};
 var song3 = {duration:null,media:null};
+var locationInterval = null;
+var weatherInterval = null;
 
+// var time = 4000;
 
-var time = 4000;
-
-//volume control
-var volume = 1.0;
-var fadeseconds=3;  // number of fadeSeconds
-var fadeStep = 1 / (fadeseconds * 10);
 
 
 // location var
@@ -31,28 +28,29 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         loadSong();
-        currentLocation();
         song1.play();
-        // setInteval(checkLocations(),20000)
+        locationInterval = setInterval(currentLocation,10000);
+        setTimeout(function(){
+            weatherInterval = setInterval(checkWeather,10000);
+        },15000);
+        $("#info").html("Started");
         $("#load").click(function(){
             loadSongs();
         });
         $("#play").click(function(){
-            $("#info").html("PLAY 1");
-
-            // song1.play();
-            setInteval(checkLocations,10000);
-            // setTimeout(setInteval(checkLocations(),1000),20*1000);
+            $("#info").html("started");
+            song1.play();
+            locationInterval = setInterval(currentLocation,10000);
         });
         $("#play2").click(function(){
-            $("#info").html('test');
+            $("#info").html('test song');
             fadeOut(song2.duration);
             song2.media.play();
             console.log(song2.media.statusCallback());
         });
         $("#stop").click(function(){
             song1.stop();
-            song2.media.stop();
+            clearInterval(locationInterval);
         });
         $("#dim").click(function(){
             volume -=0.1;
@@ -71,7 +69,7 @@ var app = {
             checkLocations();
         });
         $("#weer").click(function(){
-            watZegtDeBoosere();
+            checkWeather();
         });
     },
     // Update DOM on a Received Event

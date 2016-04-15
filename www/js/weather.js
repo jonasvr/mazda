@@ -1,4 +1,4 @@
-function watZegtDeBoosere(){
+function checkWeather(){
     // var weather = null;
     // var temp_c = null;
     console.log('in weer');
@@ -10,19 +10,15 @@ function watZegtDeBoosere(){
              var temp_c = parsed_json['current_observation']['temp_c'];
               alert("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
               switch(weather) {
-            case "Partly Cloudy":
-                fadeOut(song3.duration)
-                song3.media.play()
-                break;
+                  case "Partly Cloudy":
+                      fadeOut(song2.duration)
+                      song2.media.play()
+                      break;
+                  case "Mostly Cloudy":
+                      fadeOut(song3.duration)
+                      song3.media.play()
+                      break;
             }
           }
       });
-
-    //   switch(weather) {
-    // case "Partly Cloudy":
-    //     fadeOut(song3.duration)
-    //     song3.media.play()
-    //     break;
-    // }
-
 }

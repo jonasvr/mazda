@@ -1,3 +1,7 @@
+//volume control
+var volume = 1.0;
+var fadeseconds=3;  // number of fadeSeconds
+var fadeStep = 1 / (fadeseconds * 10);
 
 //song functions
 function loadSong(){
@@ -41,10 +45,12 @@ function fadeOut(dur){
 
         function do_fout() {
             if (volume > 0) {
+                console.log('down');
                 volume = volume - fadeStep;
                 song1.setVolume(volume);  // media is your audio object
             }
            else {
+               console.log('done');
                clearInterval(fadingout);
                var fadeI = setTimeout(fadeIn, dur-fadeseconds*1000);
            }

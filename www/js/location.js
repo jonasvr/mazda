@@ -1,9 +1,11 @@
+var maxDistance = 0.5 // => in km
+
 // locations
 var locations = {
-        albert:{lat:51.193966,long: 4.411996, played:null},
-        kaai:{lat:51.218786,long:4.395486, played:null},
-        hoboken:{lat:51.173491,long:4.370421, played:null},
-        markgrave:{lat:51.199197, long:4.403349, played:null},
+        albert:{lat:51.193966,long: 4.411996, passed:null},
+        kaai:{lat:51.218786,long:4.395486, passed:null},
+        hoboken:{lat:51.173491,long:4.370421, passed:null},
+        markgrave:{lat:51.199197, long:4.403349, passed:null},
 };
 
 var current = {long:null,lat:null};
@@ -23,10 +25,12 @@ var onSuccess = function(position) {
           current.lat  = current.lat.toFixed(6)
           current.long   = position.coords.longitude;
           current.long  = current.long.toFixed(6)
+        //   alert('Latitude: '          + current.lat        + '\n' +
+        //         'Longitude: '         + current.long        + '\n');
+          checkLocations();
         //   console.log(position.coords.longitude);
         //   console.log(position.coords.latitude);
-          alert('Latitude: '          + current.lat        + '\n' +
-                'Longitude: '         + current.long        + '\n');
+
 };
 
 
@@ -54,29 +58,30 @@ function distance(lat1, lon1, lat2, lon2, unit) {
         return dist;
 }
 
-function deg2rad(deg) {
-  return deg * (Math.PI/180)
-}
-
-
+// locaties vergelijken of ze in de buurt zijn..
 function checkLocations(){
-    alert('checking');
-    $.each( locations, function( key, value ) {
-        var dis = distance(current.lat,current.long,value.lat,value.long,'K');
-        if (dis < .5 && value.played == null) {
-            alert(key + ' is in range \n' +
-                dis
-                    );
-                    fadeOut(song2.duration);
-                    song2.media.play();
-            value.played = 1;
-            return false;
-        }
-    });
+    // alert('checking');
+        $.each( locations, function( key, value ) {
+            var dis = distance(current.lat,current.long,value.lat,value.long,'K');
+            if (dis < .5 && value.passed == null) { //binnen bereik en is nog niet gebruikt
+                switch (key) {
+                    case 'albert':
+                        fadeOut(song2.duration);
+                        song2.media.play();
+                        break;
+                    case 'markgrave':
+                        fadeOut(song3.duration);
+                        song3.media.play();
+                        break;
+                }
+                value.passed = 1;
+                return false;
+            }
+        });
 }
 
 
-function locate(){
+function locate(){ // alle ingegeven locaties
                     $.each( locations, function( key, value ) {
         var dis = distance(current.lat,current.long,value.lat,value.long,'K');
             alert(key + ' \n' + dis + ' km');
