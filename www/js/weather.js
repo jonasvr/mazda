@@ -8,15 +8,22 @@ function checkWeather(){
           success : function(parsed_json) {
              var weather = parsed_json['current_observation']['weather'];
              var temp_c = parsed_json['current_observation']['temp_c'];
-              alert("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
+             $("#info").html("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
+            //   alert();
               switch(weather) {
                   case "Partly Cloudy":
-                      fadeOut(song2.duration)
-                      song2.media.play()
+                        if (song2.passed == null) {
+                            fadeOut(song2.duration);
+                            song2.media.play();
+                            song2.passed = 1;
+                        }
                       break;
                   case "Mostly Cloudy":
-                      fadeOut(song3.duration)
-                      song3.media.play()
+                      if (song3.passed == null) {
+                          fadeOut(song3.duration);
+                          song3.media.play();
+                          song3.passed = 1;
+                      }
                       break;
             }
           }

@@ -1,3 +1,7 @@
+var song1 = null;
+var song2 = {duration:null,media:null};
+var song3 = {duration:null,media:null};
+
 //volume control
 var volume = 1.0;
 var fadeseconds=3;  // number of fadeSeconds

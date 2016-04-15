@@ -1,9 +1,7 @@
-var song1 = null;
-var song2 = {duration:null,media:null};
-var song3 = {duration:null,media:null};
 var locationInterval = null;
 var weatherInterval = null;
-
+var timeTO = 2*60*1000; // 2 minuten
+var timeInterval = 3 * 60 * 1000; // 3 minuten
 // var time = 4000;
 
 
@@ -38,9 +36,12 @@ var app = {
             loadSongs();
         });
         $("#play").click(function(){
-            $("#info").html("started");
             song1.play();
             locationInterval = setInterval(currentLocation,10000);
+            setTimeout(function(){
+                weatherInterval = setInterval(checkWeather,10000);
+            },15000);
+            $("#info").html("Started");
         });
         $("#play2").click(function(){
             $("#info").html('test song');
@@ -51,6 +52,7 @@ var app = {
         $("#stop").click(function(){
             song1.stop();
             clearInterval(locationInterval);
+            clearInterval(weatherInterval);
         });
         $("#dim").click(function(){
             volume -=0.1;

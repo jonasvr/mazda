@@ -64,6 +64,7 @@ function checkLocations(){
         $.each( locations, function( key, value ) {
             var dis = distance(current.lat,current.long,value.lat,value.long,'K');
             if (dis < .5 && value.passed == null) { //binnen bereik en is nog niet gebruikt
+                $("#info").html(key + " in de buurt gevonden");
                 switch (key) {
                     case 'albert':
                         fadeOut(song2.duration);
