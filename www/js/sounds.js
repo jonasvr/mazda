@@ -8,6 +8,7 @@ var volume = 1.0;
 var fadeseconds=3;  // number of fadeSeconds
 var fadeStep = 1 / (fadeseconds * 10);
 
+var playing = 0;
 //song functions
 function loadSong(){
     // console.log("load");
@@ -57,22 +58,31 @@ function loadSong(){
     );
     endSound.duration = 8000;
 }
-function fadeOut(dur){
-    var fadingout = setInterval(do_fout, 100);
+function fadeOut(sound){
+    console.log('fading');
+    if (playing == 0) { //prevent overlapping songs
+        sound.media.play();
+        sound.passed = 1;
+        console.log(playing);
+        playing = 1;
+        console.log(playing);
+        var fadingout = setInterval(do_fout, 100);
 
-        function do_fout() {
-            if (volume > 0) {
-                // console.log('down');
-                volume = volume - fadeStep;
-                song1.setVolume(volume);  // media is your audio object
+            function do_fout() {
+                if (volume > 0) {
+                    // console.log('down');
+                    volume = volume - fadeStep;
+                    song1.setVolume(volume);  // media is your audio object
+                }
+               else {
+                //    console.log('done');
+                   clearInterval(fadingout);
+                   var fadeI = setTimeout(fadeIn, sound.duration-fadeseconds*1000);
+               }
             }
-           else {
-            //    console.log('done');
-               clearInterval(fadingout);
-               var fadeI = setTimeout(fadeIn, dur-fadeseconds*1000);
-           }
-        }
+    }
 }
+
 function fadeIn(){
     // console.log('fading in');
     var fadingin = setInterval(do_fin, 100);
@@ -84,6 +94,10 @@ function fadeIn(){
             }
            else {
                clearInterval(fadingin);
+               setTimeout(function(){
+                    playing = 0; // this sounds is done, the next can play
+               },2*60*1000);
+
            }
         }
 }

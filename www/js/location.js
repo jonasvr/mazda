@@ -69,12 +69,12 @@ function checkLocations(){
                 $("#info").html(key + " in de buurt gevonden");
                 switch (key) {
                     case 'albert':
-                        fadeOut(song2.duration);
-                        song2.media.play();
+                        fadeOut(song2);
+                        // song2.media.play();
                         break;
                     case 'markgrave':
-                        fadeOut(song3.duration);
-                        song3.media.play();
+                        fadeOut(song3);
+                        // song3.media.play();
                         break;
                 }
                 value.passed = 1;
@@ -87,8 +87,8 @@ function checkLocations(){
 function checkStartLocation(){
     var dis = distance(current.lat,current.long,startLocation.lat,startLocation.long,'K');
     if (dis < .5 && startLocation.passed == null) { //nog checken op niet gebruikt.
-        fadeOut(endSound.duration);
-        endSound.media.play();
+        fadeOut(endSound);
+        // endSound.media.play();
         startLocation.passed = 1;
     }
 }

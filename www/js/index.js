@@ -65,7 +65,7 @@ function start(){
     },15000);
     setTimeout(function(){
         startInterval = setInterval(checkStartLocation,1000);
-    },16000);//5*60*1000
+    },16000);//10*60*1000
 
     $("#info").html("Started");
 }
