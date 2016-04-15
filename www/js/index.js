@@ -53,6 +53,10 @@ var app = {
             song1.stop();
             clearInterval(locationInterval);
             clearInterval(weatherInterval);
+            locations.albert.passed = null;
+            locations.kaai.passed = null;
+            locations.hoboken.passed = null;
+            locations.markgrave.passed = null;
         });
         $("#dim").click(function(){
             volume -=0.1;
