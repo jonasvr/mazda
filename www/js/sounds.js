@@ -49,19 +49,19 @@ function fadeOut(dur){
 
         function do_fout() {
             if (volume > 0) {
-                console.log('down');
+                // console.log('down');
                 volume = volume - fadeStep;
                 song1.setVolume(volume);  // media is your audio object
             }
            else {
-               console.log('done');
+            //    console.log('done');
                clearInterval(fadingout);
                var fadeI = setTimeout(fadeIn, dur-fadeseconds*1000);
            }
         }
 }
 function fadeIn(){
-    console.log('fading in');
+    // console.log('fading in');
     var fadingin = setInterval(do_fin, 100);
 
         function do_fin() {

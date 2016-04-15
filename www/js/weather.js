@@ -1,7 +1,7 @@
 function checkWeather(){
     // var weather = null;
     // var temp_c = null;
-    console.log('in weer');
+    // console.log('in weer');
     $.ajax({
           url : "http://api.wunderground.com/api/456208c8d6bbf92f/conditions/q/Belgium/Antwerp.json",
           dataType : "jsonp",
