@@ -1,6 +1,7 @@
 var song1 = null;
-var song2 = {duration:null,media:null};
-var song3 = {duration:null,media:null};
+var song2 = {duration:null, media:null, player:null};
+var song3 = {duration:null, media:null, player:null};
+var endSound = {duration:null, media:null, player:null};
 
 //volume control
 var volume = 1.0;
@@ -42,7 +43,19 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    song3.duration = 5000;
+    endSound.duration = 5000;
+
+    endSound.media = new Media("endSound.mp3",
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    endSound.duration = 8000;
 }
 function fadeOut(dur){
     var fadingout = setInterval(do_fout, 100);

@@ -32,9 +32,6 @@ var app = {
             weatherInterval = setInterval(checkWeather,10000);
         },15000);
         $("#info").html("Started");
-        $("#load").click(function(){
-            loadSongs();
-        });
         $("#play").click(function(){
             song1.play();
             locationInterval = setInterval(currentLocation,10000);
@@ -43,39 +40,13 @@ var app = {
             },15000);
             $("#info").html("Started");
         });
-        $("#play2").click(function(){
-            $("#info").html('test song');
-            fadeOut(song2.duration);
-            song2.media.play();
-            console.log(song2.media.statusCallback());
-        });
         $("#stop").click(function(){
             song1.stop();
             clearInterval(locationInterval);
             clearInterval(weatherInterval);
-            locations.albert.passed = null;
-            locations.kaai.passed = null;
-            locations.hoboken.passed = null;
-            locations.markgrave.passed = null;
-        });
-        $("#dim").click(function(){
-            volume -=0.1;
-               song1.setVolume(volume);
-
-            console.log('dim');
-        });
-        $("#up").click(function(){
-            volume +=0.1;
-               song1.setVolume(volume);
-        });
-        $("#loc").click(function(){
-            locate();
-        });
-        $("#dis").click(function(){
-            checkLocations();
-        });
-        $("#weer").click(function(){
-            checkWeather();
+            $.each( locations, function( key, value ) {
+                value.passed = null;
+            });
         });
     },
     // Update DOM on a Received Event

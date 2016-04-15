@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"Media\"><param name=\"ios-package\" value=\"CDVSound\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Accelerometer\"><param name=\"ios-package\" value=\"CDVAccelerometer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -43,6 +47,9 @@
             "PACKAGE_NAME": "com.phonegap.mazdaApp"
         },
         "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.phonegap.mazdaApp"
+        },
+        "cordova-plugin-device-motion": {
             "PACKAGE_NAME": "com.phonegap.mazdaApp"
         }
     },
@@ -268,11 +275,28 @@
             "clobbers": [
                 "window.Media"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device-motion/www/Acceleration.js",
+            "id": "cordova-plugin-device-motion.Acceleration",
+            "pluginId": "cordova-plugin-device-motion",
+            "clobbers": [
+                "Acceleration"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device-motion/www/accelerometer.js",
+            "id": "cordova-plugin-device-motion.accelerometer",
+            "pluginId": "cordova-plugin-device-motion",
+            "clobbers": [
+                "navigator.accelerometer"
+            ]
         }
     ],
     "plugin_metadata": {
         "cordova-plugin-geolocation": "2.1.0",
         "cordova-plugin-file": "4.1.1",
-        "cordova-plugin-media": "2.2.0"
+        "cordova-plugin-media": "2.2.0",
+        "cordova-plugin-device-motion": "1.2.0"
     }
 }

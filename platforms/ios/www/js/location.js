@@ -25,12 +25,7 @@ var onSuccess = function(position) {
           current.lat  = current.lat.toFixed(6)
           current.long   = position.coords.longitude;
           current.long  = current.long.toFixed(6)
-        //   alert('Latitude: '          + current.lat        + '\n' +
-        //         'Longitude: '         + current.long        + '\n');
           checkLocations();
-        //   console.log(position.coords.longitude);
-        //   console.log(position.coords.latitude);
-
 };
 
 

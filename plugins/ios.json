@@ -12,6 +12,9 @@
         },
         "cordova-plugin-media": {
             "PACKAGE_NAME": "com.phonegap.mazdaApp"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "com.phonegap.mazdaApp"
         }
     },
     "dependent_plugins": {

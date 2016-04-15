@@ -8,8 +8,8 @@ var locations = {
         markgrave:{lat:51.199197, long:4.403349, passed:null},
 };
 
-var current = {long:null,lat:null};
-
+var current = {lat:null,long:null};
+var startLocation = {lat:null, long: null, passed:null};
 function currentLocation()
 {
     options = { enableHighAccuracy: true };
@@ -22,15 +22,17 @@ function currentLocation()
 //
 var onSuccess = function(position) {
           current.lat  = position.coords.latitude;
-          current.lat  = current.lat.toFixed(6)
+          current.lat  = current.lat.toFixed(6);
           current.long   = position.coords.longitude;
-          current.long  = current.long.toFixed(6)
-        //   alert('Latitude: '          + current.lat        + '\n' +
-        //         'Longitude: '         + current.long        + '\n');
+          current.long  = current.long.toFixed(6);
           checkLocations();
-        //   console.log(position.coords.longitude);
-        //   console.log(position.coords.latitude);
+};
 
+var onSuccessStart = function(position) {
+          startLocation.lat  = position.coords.latitude;
+          startLocation.lat  = startLocation.lat.toFixed(6);
+          startLocation.long   = position.coords.longitude;
+          startLocation.long  = startLocation.long.toFixed(6);
 };
 
 
@@ -79,6 +81,16 @@ function checkLocations(){
                 return false;
             }
         });
+}
+
+ //als we op het einde komen
+function checkStartLocation(){
+    var dis = distance(current.lat,current.long,startLocation.lat,startLocation.long,'K');
+    if (dis < .5 && startLocation.passed == null) { //nog checken op niet gebruikt.
+        fadeOut(endSound.duration);
+        endSound.media.play();
+        startLocation.passed = 1;
+    }
 }
 
 
