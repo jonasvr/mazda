@@ -25,6 +25,13 @@ function checkWeather(){
                           song3.passed = 1;
                       }
                       break;
+                  case "Scattered Clouds":
+                      if (song3.passed == null) {
+                          fadeOut(song3.duration);
+                          song3.media.play();
+                          song3.passed = 1;
+                      }
+                      break;
             }
           }
       });
