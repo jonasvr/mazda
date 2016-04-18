@@ -12,24 +12,16 @@ function checkWeather(){
             //   alert();
               switch(weather) {
                   case "Partly Cloudy":
-                        if (song2.passed == null) {
-                            fadeOut(song2);
-                        }
+                            fadeOut(sound.song2);
                       break;
                   case "Mostly Cloudy":
-                      if (song3.passed == null) {
-                          fadeOut(song3);
-                      }
+                          fadeOut(sound.song3);
                       break;
                   case "Scattered Clouds":
-                      if (song3.passed == null) {
-                          fadeOut(song3);
-                      }
+                          fadeOut(sound.song3);
                       break;
                   case "Clear":
-                      if (weer.passed == null) {
-                          fadeOut(weer);
-                      }
+                          fadeOut(sound.weer);
                       break;
             }
           }

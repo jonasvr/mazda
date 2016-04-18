@@ -35,7 +35,7 @@ var app = {
         });
         $("#stop").click(function(){
             $("#info").html("Stopped");
-            song1.stop();
+            sounds.song1.stop();
             clearInterval(locationInterval);
             clearInterval(weatherInterval);
             clearInterval(startInterval);
@@ -45,6 +45,9 @@ var app = {
             $.each( locations, function( key, value ) {
                 value.passed = null;
             });
+            console.log('test');
+            // sounds.stop();
+            // console.log(sounds);
         });
 
     },
@@ -65,7 +68,7 @@ var app = {
 function start(){
     options = { enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccessStart, onError,options); //startlocation opslaan.
-    song1.play();
+    sounds.song1.play();
     locationInterval    = setInterval(currentLocation,10000);
 
     weatherTimeOut = setTimeout(function(){
@@ -74,7 +77,7 @@ function start(){
 
     startTimeOut = setTimeout(function(){
         startInterval = setInterval(checkStartLocation,1000);
-    },3*60*1000);//10*60*1000
+    },1*60*1000);//10*60*1000
 
     $("#info").html("Started");
 }

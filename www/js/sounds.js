@@ -1,11 +1,19 @@
 var song1           = null;
-var song2           = {duration:null, media:null, player:null};
-var song3           = {duration:null, media:null, player:null};
-var td              = {duration:null, media:null, player:null};
-var weer            = {duration:null, media:null, passed:null};
-var snelheid        = {duration:null, media:null, player:null};
-var albert          = {duration:null, media:null, player:null};
-var endSound        = {duration:null, media:null, player:null};
+var sounds = {
+    song2           : {duration:null, media:null, passed:null},
+    song3           : {duration:null, media:null, passed:null},
+    td              : {duration:null, media:null, passed:null},
+    weer            : {duration:null, media:null, passed:null},
+    snelheid        : {duration:null, media:null, passed:null},
+    albert          : {duration:null, media:null, passed:null},
+    endSound        : {duration:null, media:null, passed:null},
+    stop:function(){
+        $.each(this, function( key, value ) {
+            value.passed = null;
+        });
+    }
+};
+
 
 
 //volume control
@@ -17,10 +25,10 @@ var playing = 0;
 var pauseSound = 1 * 60 * 1000;
 
 //song functions
-function fadeOut(sound){
-    if (playing == 0) { //prevent overlapping songs
-        sound.media.play();
-        sound.passed = 1;
+function fadeOut(snd){
+    if (playing == 0 && snd.passed == null) { //prevent overlapping songs
+        snd.media.play();
+        snd.passed = 1;
         playing = 1;
         var fadingout = setInterval(do_fout, 100);
 
@@ -28,16 +36,16 @@ function fadeOut(sound){
                 if (volume > 0) {
                     // console.log('down');
                     volume = volume - fadeStep;
-                    setTimeout(song1.setVolume(volume),2000);  // media is your audio object
+                    setTimeout(sounds.song1.setVolume(volume),3500);  // media is your audio object
                 }
                else {
                 //    console.log('done');
                    clearInterval(fadingout);
-                   var fadeI = setTimeout(fadeIn, sound.duration-fadeseconds*1000);
-                //    sound.passed=1;
+                   var fadeI = setTimeout(fadeIn, snd.duration-fadeseconds*1000);
+                //    snd.passed=1;
                }
             }
-    } 
+    }
 }
 
 function fadeIn(){
@@ -47,7 +55,7 @@ function fadeIn(){
         function do_fin() {
             if (volume < 1) {
                 volume = volume + fadeStep;
-                song1.setVolume(volume);  // media is your audio object
+                sounds.song1.setVolume(volume);  // media is your audio object
             }
            else {
                clearInterval(fadingin);
@@ -62,7 +70,7 @@ function fadeIn(){
 
 function loadSong(){
     // console.log("load");
-    song1 = new Media("shout.mp3",
+    sounds.song1 = new Media("shout.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -72,7 +80,7 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    song2.media = new Media("feel.mp3",
+    sounds.song2.media = new Media("feel.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -82,9 +90,9 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    song2.duration = 4000;
+    sounds.song2.duration = 4000;
 
-    song3.media = new Media("bang.mp3",
+    sounds.song3.media = new Media("bang.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -94,9 +102,9 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    endSound.duration = 5000;
+    sounds.endSound.duration = 5000;
 
-    weer.media = new Media("weer.mp3",
+    sounds.weer.media = new Media("weer.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -106,9 +114,9 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    weer.duration = 6000;
+    sounds.weer.duration = 6000;
 
-    albert.media = new Media("albert.mp3",
+    sounds.albert.media = new Media("albert.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -118,9 +126,9 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    albert.duration = 5000;
+    sounds.albert.duration = 5000;
 
-    td.media = new Media("td.mp3",
+    sounds.td.media = new Media("td.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -130,9 +138,9 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    td.duration = 5000;
+    sounds.td.duration = 5000;
 
-    snelheid.media = new Media("snelheid.mp3",
+    sounds.snelheid.media = new Media("snelheid.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -142,9 +150,9 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    snelheid.duration = 6000;
+    sounds.snelheid.duration = 6000;
 
-    endSound.media = new Media("parkeren.mp3",
+    sounds.endSound.media = new Media("parkeren.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -154,5 +162,5 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    endSound.duration = 5000;
+    sounds.endSound.duration = 5000;
 }
