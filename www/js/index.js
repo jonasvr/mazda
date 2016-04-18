@@ -3,6 +3,8 @@ var weatherInterval = null;
 var startInterval = null;
 var timeTO = 2*60*1000; // 2 minuten
 var timeInterval = 3 * 60 * 1000; // 3 minuten
+var startTimeOut = null;
+var weatherTimeOut = null;
 // var time = 4000;
 
 
@@ -27,7 +29,7 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         loadSong();
-        start();
+        // start();
         $("#play").click(function(){
             start();
         });
@@ -37,6 +39,9 @@ var app = {
             clearInterval(locationInterval);
             clearInterval(weatherInterval);
             clearInterval(startInterval);
+            clearTimeOut(weatherTimeOut);
+            clearTimeOut(startTimeOut);
+
             $.each( locations, function( key, value ) {
                 value.passed = null;
             });
@@ -60,11 +65,13 @@ function start(){
     options = { enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccessStart, onError,options); //startlocation opslaan.
     song1.play();
-    locationInterval = setInterval(currentLocation,10000);
-    setTimeout(function(){
+    locationInterval    = setInterval(currentLocation,10000);
+
+    weatherTimeOut = setTimeout(function(){
         weatherInterval = setInterval(checkWeather,10000);
     },15000);
-    setTimeout(function(){
+
+    startTimeOut = setTimeout(function(){
         startInterval = setInterval(checkStartLocation,1000);
     },3*60*1000);//10*60*1000
 
