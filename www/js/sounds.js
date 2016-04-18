@@ -36,7 +36,7 @@ function fadeOut(snd){
                 if (volume > 0) {
                     // console.log('down');
                     volume = volume - fadeStep;
-                    setTimeout(sounds.song1.setVolume(volume),3500);  // media is your audio object
+                    setTimeout(sounds.song1.setVolume(volume),4000);  // media is your audio object
                 }
                else {
                 //    console.log('done');
@@ -92,7 +92,7 @@ function loadSong(){
     );
     sounds.song2.duration = 4000;
 
-    sounds.song3.media = new Media("bang.mp3",
+    sounds.song3.media = new Media(".mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
