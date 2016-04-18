@@ -12,13 +12,13 @@ function checkWeather(){
             //   alert();
               switch(weather) {
                   case "Partly Cloudy":
-                            fadeOut(sound.song2);
+                            fadeOut(sound.weer);
                       break;
                   case "Mostly Cloudy":
-                          fadeOut(sound.song3);
+                          fadeOut(sound.weer);
                       break;
                   case "Scattered Clouds":
-                          fadeOut(sound.song3);
+                          fadeOut(sound.weer);
                       break;
                   case "Clear":
                           fadeOut(sound.weer);
