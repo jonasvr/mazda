@@ -6,22 +6,23 @@ function checkWeather(){
           url : "http://api.wunderground.com/api/456208c8d6bbf92f/conditions/q/Belgium/Antwerp.json",
           dataType : "jsonp",
           success : function(parsed_json) {
+              console.log('weather update');
              var weather = parsed_json['current_observation']['weather'];
              var temp_c = parsed_json['current_observation']['temp_c'];
              $("#info").html("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
             //   alert();
               switch(weather) {
                   case "Partly Cloudy":
-                            fadeOut(sound.weer);
+                            fadeOut(sounds.weer);
                       break;
                   case "Mostly Cloudy":
-                          fadeOut(sound.weer);
+                          fadeOut(sounds.weer);
                       break;
                   case "Scattered Clouds":
-                          fadeOut(sound.weer);
+                          fadeOut(sounds.weer);
                       break;
                   case "Clear":
-                          fadeOut(sound.weer);
+                          fadeOut(sounds.weer);
                       break;
             }
           }

@@ -7,11 +7,6 @@ var sounds = {
     snelheid        : {duration:null, media:null, passed:null},
     albert          : {duration:null, media:null, passed:null},
     endSound        : {duration:null, media:null, passed:null},
-    stop:function(){
-        $.each(this, function( key, value ) {
-            value.passed = null;
-        });
-    }
 };
 
 
@@ -22,11 +17,12 @@ var fadeseconds=3;  // number of fadeSeconds
 var fadeStep = 1 / (fadeseconds * 10);
 
 var playing = 0;
-var pauseSound = 1 * 60 * 1000;
+var pauseSound = 1 * 10 * 1000;
 
 //song functions
 function fadeOut(snd){
     if (playing == 0 && snd.passed == null) { //prevent overlapping songs
+        console.log('fading');
         snd.media.play();
         snd.passed = 1;
         playing = 1;
@@ -36,7 +32,7 @@ function fadeOut(snd){
                 if (volume > 0) {
                     // console.log('down');
                     volume = volume - fadeStep;
-                    setTimeout(sounds.song1.setVolume(volume),4000);  // media is your audio object
+                    setTimeout(sounds.song1.setVolume(volume),5000);  // media is your audio object
                 }
                else {
                 //    console.log('done');

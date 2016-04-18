@@ -85,10 +85,9 @@ function checkLocations(){
 
  //als we op het einde komen
 function checkStartLocation(){
-    console.log('checking home');
     var dis = distance(current.lat,current.long,startLocation.lat,startLocation.long,'K');
     if (dis < .5 && startLocation.passed == null) { //nog checken op niet gebruikt.
-        console.log('found');
+        console.log('found home');
         fadeOut(sounds.endSound);
         $("#info").html("almost home");
     }

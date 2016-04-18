@@ -5,6 +5,7 @@ var timeTO = 2*60*1000; // 2 minuten
 var timeInterval = 3 * 60 * 1000; // 3 minuten
 var startTimeOut = null;
 var weatherTimeOut = null;
+var timing = 1 * 10 * 1000;
 // var time = 4000;
 
 
@@ -45,9 +46,9 @@ var app = {
             $.each( locations, function( key, value ) {
                 value.passed = null;
             });
-            console.log('test');
-            // sounds.stop();
-            // console.log(sounds);
+            $.each( sounds, function( key, value ) {
+                value.passed = null;
+            });
         });
 
     },
@@ -69,14 +70,14 @@ function start(){
     options = { enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccessStart, onError,options); //startlocation opslaan.
     sounds.song1.play();
-    locationInterval    = setInterval(currentLocation,10000);
+    locationInterval    = setInterval(currentLocation,timing);
 
     weatherTimeOut = setTimeout(function(){
-        weatherInterval = setInterval(checkWeather,10000);
+        weatherInterval = setInterval(checkWeather,timing);
     },15000);
 
     startTimeOut = setTimeout(function(){
-        startInterval = setInterval(checkStartLocation,1000);
+        startInterval = setInterval(checkStartLocation,timing);
     },1*60*1000);//10*60*1000
 
     $("#info").html("Started");
