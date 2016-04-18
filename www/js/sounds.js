@@ -1,7 +1,11 @@
-var song1 = null;
-var song2 = {duration:null, media:null, player:null};
-var song3 = {duration:null, media:null, player:null};
-var endSound = {duration:null, media:null, player:null};
+var song1           = null;
+var song2           = {duration:null, media:null, player:null};
+var song3           = {duration:null, media:null, player:null};
+var td              = {duration:null, media:null, player:null};
+var weer            = {duration:null, media:null, passed:null};
+var snelheid        = {duration:null, media:null, player:null};
+var albert          = {duration:null, media:null, player:null};
+var endSound        = {duration:null, media:null, player:null};
 
 //volume control
 var volume = 1.0;
@@ -46,7 +50,7 @@ function loadSong(){
     );
     endSound.duration = 5000;
 
-    endSound.media = new Media("endSound.mp3",
+    weer.media = new Media("weer.mp3",
         // success callback
         function () {
             console.log("playAudio():Audio Success");
@@ -56,28 +60,74 @@ function loadSong(){
             console.log("playAudio():Audio Error: " + err);
         }
     );
-    endSound.duration = 8000;
+    weer.duration = 6000;
+
+    albert.media = new Media("albert.mp3",
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    albert.duration = 5000;
+
+    td.media = new Media("td.mp3",
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    td.duration = 5000;
+
+    snelheid.media = new Media("snelheid.mp3",
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    snelheid.duration = 6000;
+
+    endSound.media = new Media("parkeren.mp3",
+        // success callback
+        function () {
+            console.log("playAudio():Audio Success");
+        },
+        // error callback
+        function (err) {
+            console.log("playAudio():Audio Error: " + err);
+        }
+    );
+    endSound.duration = 5000;
 }
 function fadeOut(sound){
-    console.log('fading');
     if (playing == 0) { //prevent overlapping songs
         sound.media.play();
         sound.passed = 1;
-        console.log(playing);
         playing = 1;
-        console.log(playing);
         var fadingout = setInterval(do_fout, 100);
 
             function do_fout() {
                 if (volume > 0) {
                     // console.log('down');
                     volume = volume - fadeStep;
-                    song1.setVolume(volume);  // media is your audio object
+                    setTimeout(song1.setVolume(volume),2000);  // media is your audio object
                 }
                else {
                 //    console.log('done');
                    clearInterval(fadingout);
                    var fadeI = setTimeout(fadeIn, sound.duration-fadeseconds*1000);
+                //    sound.passed=1;
                }
             }
     }
@@ -96,7 +146,7 @@ function fadeIn(){
                clearInterval(fadingin);
                setTimeout(function(){
                     playing = 0; // this sounds is done, the next can play
-               },2*60*1000);
+               },1*60*1000);
 
            }
         }

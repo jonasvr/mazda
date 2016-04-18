@@ -69,7 +69,7 @@ function checkLocations(){
                 $("#info").html(key + " in de buurt gevonden");
                 switch (key) {
                     case 'albert':
-                        fadeOut(song2);
+                        fadeOut(albert);
                         // song2.media.play();
                         break;
                     case 'markgrave':

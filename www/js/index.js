@@ -32,6 +32,7 @@ var app = {
             start();
         });
         $("#stop").click(function(){
+            $("#info").html("Stopped");
             song1.stop();
             clearInterval(locationInterval);
             clearInterval(weatherInterval);
@@ -65,7 +66,7 @@ function start(){
     },15000);
     setTimeout(function(){
         startInterval = setInterval(checkStartLocation,1000);
-    },16000);//10*60*1000
+    },3*60*1000);//10*60*1000
 
     $("#info").html("Started");
 }
