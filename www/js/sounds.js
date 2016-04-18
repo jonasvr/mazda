@@ -37,7 +37,7 @@ function fadeOut(sound){
                 //    sound.passed=1;
                }
             }
-    }
+    } 
 }
 
 function fadeIn(){
