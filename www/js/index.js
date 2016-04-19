@@ -73,24 +73,25 @@ function start(){
     timeOut =  setTimeout(function(){
         evenIntervel = setInterval(function(){
             selectEvent();
-        },timing)
-    },5000);
+        },5000)
+    },1000);
 
 
     $("#info").html("Started");
     function selectEvent()
     {
-        switch (counter%3) {
-            case 0:
-                currentLocation();
-                break;
-            case 1:
-                checkWeather();
-                break;
-            case 2:
-                checkStartLocation();
-                break;
-        }
-            counter++;
+        currentLocation();
+        // switch (counter%3) {
+        //     case 0:
+        //         currentLocation();
+        //         break;
+        //     case 1:
+        //         checkWeather();
+        //         break;
+        //     case 2:
+        //         checkStartLocation();
+        //         break;
+        // }
+        //     counter++;
     }
 }
