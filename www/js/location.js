@@ -2,10 +2,23 @@ var maxDistance = 0.5 // => in km
 
 // locations
 var locations = {
-        albert:{lat:51.193966,long: 4.411996, passed:null},
-        kaai:{lat:51.218786,long:4.395486, passed:null},
-        hoboken:{lat:51.173491,long:4.370421, passed:null},
-        markgrave:{lat:51.199197, long:4.403349, passed:null},
+        albert:{    lat:51.193966, long:4.411996, passed:null},
+        kaai:{      lat:51.218786, long:4.395486, passed:null},
+        hoboken:{   lat:51.173491, long:4.370421, passed:null},
+        markgrave:{ lat:51.199197, long:4.403349, passed:null},
+        //tankstations
+        esso:{      lat:51.189387, long:4.400421},
+        total:{     lat:51.188865, long:4.440305},
+        esso2:{     lat:51.260049, long:4.419755},
+        Meas:{      lat:51.171029, long:4.364098},
+
+        //autogarages
+        buga:{      lat:51.194775, long:4.417542},
+        ranualt:{   lat:51.173402, long:4.394113},
+        ford:{      lat:51.184815, long:4.390922},
+        opel:{      lat:51.187206, long:4.386238},
+        hyundai:{   lat:51.179374, long:4.433195},
+
 };
 
 var current = {lat:null,long:null};
@@ -65,18 +78,16 @@ function checkLocations(){
     // alert('checking');
         $.each( locations, function( key, value ) {
             var dis = distance(current.lat,current.long,value.lat,value.long,'K');
-            if (dis < .5 && value.passed == null) { //binnen bereik en is nog niet gebruikt
-                $("#info").html(key + " in de buurt gevonden");
+            if (dis < .5) { //binnen bereik en is nog niet gebruikt
                 switch (key) {
                     case 'albert':
                         fadeOut(sounds.albert);
-                        // song2.media.play();
                         break;
                     case 'markgrave':
                         fadeOut(sounds.song3);
-                        // song3.media.play();
                         break;
                 }
+                $("#info").html(key + " in de buurt gevonden");
                 value.passed = 1;
                 return false;
             }
@@ -87,7 +98,6 @@ function checkLocations(){
 function checkStartLocation(){
     var dis = distance(current.lat,current.long,startLocation.lat,startLocation.long,'K');
     if (dis < .5 && startLocation.passed == null) { //nog checken op niet gebruikt.
-        console.log('found home');
         fadeOut(sounds.endSound);
         $("#info").html("almost home");
     }

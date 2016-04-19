@@ -31,6 +31,10 @@ var app = {
         app.receivedEvent('deviceready');
         loadSong();
         // start();
+        // $( "#play" ).bind( "tap", function(){
+        //     console.log('tapped');
+        //     start();
+        // } );
         $("#play").click(function(){
             start();
         });
