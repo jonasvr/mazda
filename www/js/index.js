@@ -35,25 +35,30 @@ var app = {
         //     console.log('tapped');
         //     start();
         // } );
-        $("#play").click(function(){
-            start();
-        });
-        $("#stop").click(function(){
-            $("#info").html("Stopped");
-            sounds.song1.stop();
-            clearInterval(locationInterval);
-            clearInterval(weatherInterval);
-            clearInterval(startInterval);
-            clearTimeOut(weatherTimeOut);
-            clearTimeOut(startTimeOut);
+        $(document).ready(function(){
 
-            $.each( locations, function( key, value ) {
-                value.passed = null;
+            $("#play").click(function(){
+                start();
             });
-            $.each( sounds, function( key, value ) {
-                value.passed = null;
+            $("#stop").click(function(){
+                $("#info").html("Stopped");
+                sounds.song1.stop();
+                clearInterval(locationInterval);
+                clearInterval(weatherInterval);
+                clearInterval(startInterval);
+                clearTimeOut(weatherTimeOut);
+                clearTimeOut(startTimeOut);
+
+                $.each( locations, function( key, value ) {
+                    value.passed = null;
+                });
+                $.each( sounds, function( key, value ) {
+                    value.passed = null;
+                });
             });
+
         });
+
 
     },
 
