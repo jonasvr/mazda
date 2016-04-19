@@ -35,30 +35,29 @@ var app = {
         //     console.log('tapped');
         //     start();
         // } );
-        $(document).ready(function(){
-
-            $("#play").click(function(){
-                start();
-            });
-            $("#stop").click(function(){
-                $("#info").html("Stopped");
-                sounds.song1.stop();
-                clearInterval(locationInterval);
-                clearInterval(weatherInterval);
-                clearInterval(startInterval);
-                clearTimeOut(weatherTimeOut);
-                clearTimeOut(startTimeOut);
-
-                $.each( locations, function( key, value ) {
-                    value.passed = null;
-                });
-                $.each( sounds, function( key, value ) {
-                    value.passed = null;
-                });
-            });
-
+        $("#play").on("taphold",function(){
+        //   $(this).hide();
+        $("#info").html("TAp works");
         });
+        $("#play").click(function(){
+            start();
+        });
+        $("#stop").click(function(){
+            $("#info").html("Stopped");
+            sounds.song1.stop();
+            clearInterval(locationInterval);
+            clearInterval(weatherInterval);
+            clearInterval(startInterval);
+            clearTimeOut(weatherTimeOut);
+            clearTimeOut(startTimeOut);
 
+            $.each( locations, function( key, value ) {
+                value.passed = null;
+            });
+            $.each( sounds, function( key, value ) {
+                value.passed = null;
+            });
+        });
 
     },
 
