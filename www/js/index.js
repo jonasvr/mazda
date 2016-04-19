@@ -1,10 +1,7 @@
-var locationInterval = null;
-var weatherInterval = null;
-var startInterval = null;
+var eventInterval = null;
+var timeOut = null;
 var timeTO = 2*60*1000; // 2 minuten
 var timeInterval = 3 * 60 * 1000; // 3 minuten
-var startTimeOut = null;
-var weatherTimeOut = null;
 var timing = 1 * 10 * 1000;
 // var time = 4000;
 
@@ -31,18 +28,20 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         loadSong();
-
+        // var watchID = navigator.accelerometer.watchAcceleration(onSuccessAccel, onErrorAccel, optionsAccel);
+        // console.log(watchID);
         $("#play").click(function(){
             start();
+        });
+        $("#accel").click(function(){
+            test();
+            var watchID = navigator.accelerometer.watchAcceleration(onSuccessAccel, onErrorAccel, optionsAccel);
         });
         $("#stop").click(function(){
             $("#info").html("Stopped");
             sounds.song1.stop();
-            clearInterval(locationInterval);
-            clearInterval(weatherInterval);
-            clearInterval(startInterval);
-            clearTimeOut(weatherTimeOut);
-            clearTimeOut(startTimeOut);
+            clearInterval(evenIntervel);
+            clearTimeOut(timeOut);
 
             $.each( locations, function( key, value ) {
                 value.passed = null;
@@ -71,11 +70,8 @@ function start(){
     options = { enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccessStart, onError,options); //startlocation opslaan.
     sounds.song1.play();
-
-    setTimeout(function(){
-        console.log('in timeout');
-        setInterval(function(){
-            console.log('in setinterval');
+    timeOut =  setTimeout(function(){
+        evenIntervel = setInterval(function(){
             selectEvent();
         },timing)
     },5000);
@@ -84,18 +80,14 @@ function start(){
     $("#info").html("Started");
     function selectEvent()
     {
-        console.log('selectEvent');
         switch (counter%3) {
             case 0:
-                console.log('checking locations');
                 currentLocation();
                 break;
             case 1:
                 checkWeather();
-                console.log('checking weather');
                 break;
             case 2:
-                console.log('checking startlocation');
                 checkStartLocation();
                 break;
         }

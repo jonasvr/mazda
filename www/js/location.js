@@ -87,16 +87,12 @@ function checkLocations(){
                 switch (key) {
                     case 'albert':
                         fadeOut(sounds.albert);
-                        message = 1;
                         break;
                     case 'markgrave':
                         fadeOut(sounds.song3);
-                        message = 1;
                         break;
                 }
-                if (message) {
                     $("#info").html(key + " in de buurt gevonden");
-                }
                 return false;
             }
         });

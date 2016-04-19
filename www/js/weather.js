@@ -13,24 +13,18 @@ function checkWeather(){
               switch(weather) {
                   case "Partly Cloudy":
                           fadeOut(sounds.weer);
-                          message = 1;
                       break;
                   case "Mostly Cloudy":
                           fadeOut(sounds.weer);
-                          message = 1;
                       break;
                   case "Scattered Clouds":
                           fadeOut(sounds.weer);
-                          message = 1;
                       break;
                   case "Clear":
                           fadeOut(sounds.weer);
-                          message = 1;
                       break;
             }
-            if (message) {
-                $("#info").html("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
-            }
+            $("#info").html("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
           }
       });
 }
