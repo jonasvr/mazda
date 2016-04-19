@@ -11,6 +11,6 @@ function test(){
     function onError() {
         alert('onError!');
     };
-    var options = { frequency: 10000 };  // Update every 3 seconds
-    var watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    // var options = { frequency: 10000 };  // Update every 3 seconds
+    // var watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
 }
