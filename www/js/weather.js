@@ -9,21 +9,27 @@ function checkWeather(){
               console.log('weather update');
              var weather = parsed_json['current_observation']['weather'];
              var temp_c = parsed_json['current_observation']['temp_c'];
-             $("#info").html("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
-            //   alert();
+             var message = 0;
               switch(weather) {
                   case "Partly Cloudy":
-                            fadeOut(sounds.weer);
+                          fadeOut(sounds.weer);
+                          message = 1;
                       break;
                   case "Mostly Cloudy":
                           fadeOut(sounds.weer);
+                          message = 1;
                       break;
                   case "Scattered Clouds":
                           fadeOut(sounds.weer);
+                          message = 1;
                       break;
                   case "Clear":
                           fadeOut(sounds.weer);
+                          message = 1;
                       break;
+            }
+            if (message) {
+                $("#info").html("Current temperature in Antwerp is: " + temp_c + " and it is: " + weather);
             }
           }
       });

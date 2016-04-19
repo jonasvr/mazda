@@ -8,6 +8,7 @@ var weatherTimeOut = null;
 var timing = 1 * 10 * 1000;
 // var time = 4000;
 
+counter=3;
 
 
 // location var
@@ -30,15 +31,7 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         loadSong();
-        // start();
-        // $( "#play" ).bind( "tap", function(){
-        //     console.log('tapped');
-        //     start();
-        // } );
-        $("#play").on("taphold",function(){
-        //   $(this).hide();
-        $("#info").html("TAp works");
-        });
+
         $("#play").click(function(){
             start();
         });
@@ -78,15 +71,34 @@ function start(){
     options = { enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccessStart, onError,options); //startlocation opslaan.
     sounds.song1.play();
-    locationInterval    = setInterval(currentLocation,timing);
 
-    weatherTimeOut = setTimeout(function(){
-        weatherInterval = setInterval(checkWeather,timing);
-    },15000);
+    setTimeout(function(){
+        console.log('in timeout');
+        setInterval(function(){
+            console.log('in setinterval');
+            selectEvent();
+        },timing)
+    },5000);
 
-    startTimeOut = setTimeout(function(){
-        startInterval = setInterval(checkStartLocation,timing);
-    },1*60*1000);//10*60*1000
 
     $("#info").html("Started");
+    function selectEvent()
+    {
+        console.log('selectEvent');
+        switch (counter%3) {
+            case 0:
+                console.log('checking locations');
+                currentLocation();
+                break;
+            case 1:
+                checkWeather();
+                console.log('checking weather');
+                break;
+            case 2:
+                console.log('checking startlocation');
+                checkStartLocation();
+                break;
+        }
+            counter++;
+    }
 }

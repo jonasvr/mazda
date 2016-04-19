@@ -18,6 +18,9 @@ var locations = {
         ford:{      lat:51.184815, long:4.390922},
         opel:{      lat:51.187206, long:4.386238},
         hyundai:{   lat:51.179374, long:4.433195},
+        clear:function(){
+
+        }
 
 };
 
@@ -76,19 +79,24 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 // locaties vergelijken of ze in de buurt zijn..
 function checkLocations(){
     // alert('checking');
+    var message = 0;
+
         $.each( locations, function( key, value ) {
             var dis = distance(current.lat,current.long,value.lat,value.long,'K');
             if (dis < .5) { //binnen bereik en is nog niet gebruikt
                 switch (key) {
                     case 'albert':
                         fadeOut(sounds.albert);
+                        message = 1;
                         break;
                     case 'markgrave':
                         fadeOut(sounds.song3);
+                        message = 1;
                         break;
                 }
-                $("#info").html(key + " in de buurt gevonden");
-                value.passed = 1;
+                if (message) {
+                    $("#info").html(key + " in de buurt gevonden");
+                }
                 return false;
             }
         });
@@ -101,12 +109,4 @@ function checkStartLocation(){
         fadeOut(sounds.endSound);
         $("#info").html("almost home");
     }
-}
-
-
-function locate(){ // alle ingegeven locaties
-                    $.each( locations, function( key, value ) {
-        var dis = distance(current.lat,current.long,value.lat,value.long,'K');
-            alert(key + ' \n' + dis + ' km');
-    });
 }
