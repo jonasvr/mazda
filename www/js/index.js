@@ -73,7 +73,7 @@ function start(){
     timeOut =  setTimeout(function(){
         evenIntervel = setInterval(function(){
             selectEvent();
-        },5000)
+        },10000)
     },1000);
 
 
