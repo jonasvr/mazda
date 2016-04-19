@@ -37,25 +37,23 @@ function currentLocation()
 // current GPS coordinates
 //
 var onSuccess = function(position) {
-        dis=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6))
-        dis =  dis.toFixed(4);
+        dist=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6),'K')
+        // dis =  dis.toFixed(4);
         // alert(dis);
-        var speed = (dis / (position.timestamp-current.time) ) * 60 *60;
+        // alert('position.time: '          + position.timestamp          + '\n' +
+        //         'current.time: '         + current.time        + '\n');
+        // alert(dist);
+        var time = Math.floor((position.timestamp-current.time)/1000);
+        var speed = (dist / time ) * 60 *60;
+        alert('afstand: ' + dist  + '\n' +
+                'time: ' + time + '\n'+
+                'speed:' + speed);
         alert(speed);
           current.lat  = position.coords.latitude;
           current.lat  = current.lat.toFixed(6);
           current.long   = position.coords.longitude;
           current.long  = current.long.toFixed(6);
           current.time = position.timestamp;
-        //   alert('Latitude: '          + position.coords.latitude          + '\n' +
-        //     'Longitude: '         + position.coords.longitude         + '\n' +
-        //     'Altitude: '          + position.coords.altitude          + '\n' +
-        //     'Accuracy: '          + position.coords.accuracy          + '\n' +
-        //     'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-        //     'Heading: '           + position.coords.heading           + '\n' +
-        //     'Speed: '             + position.coords.speed             + '\n' +
-        //     'Timestamp: '         + position.timestamp                + '\n');
-        //   checkLocations();
 };
 
 var onSuccessStart = function(position) {
