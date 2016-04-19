@@ -45,10 +45,17 @@ var onSuccess = function(position) {
         // alert(dist);
         var time = Math.floor((position.timestamp-current.time)/1000);
         var speed = (dist / time ) * 60 *60;
-        alert('afstand: ' + dist  + '\n' +
-                'time: ' + time + '\n'+
-                'speed:' + speed);
-        alert(speed);
+        alert('afstand: ' + dist.toFixed(4)  + ' km \n' +
+                'time: ' + time + ' s \n'+
+                'speed:' + speed.toFixed(4) + ' km/u');
+        // alert(speed);
+        var element = document.getElementById('info');
+
+        // $("#info").html('Acceleration X: ' + acceleration.x + '<br />' +
+        //                    'Acceleration Y: ' + acceleration.y + '<br />' +
+        //                    'Acceleration Z: ' + acceleration.z + '<br />' +
+        //                    'Timestamp: ' + acceleration.timestamp + '<br />');
+
           current.lat  = position.coords.latitude;
           current.lat  = current.lat.toFixed(6);
           current.long   = position.coords.longitude;
