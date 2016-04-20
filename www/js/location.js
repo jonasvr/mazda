@@ -37,24 +37,12 @@ function currentLocation()
 // current GPS coordinates
 //
 var onSuccess = function(position) {
-        dist=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6),'K')
-        // dis =  dis.toFixed(4);
-        // alert(dis);
-        // alert('position.time: '          + position.timestamp          + '\n' +
-        //         'current.time: '         + current.time        + '\n');
-        // alert(dist);
-        var time = Math.floor((position.timestamp-current.time)/1000);
-        var speed = (dist / time ) * 60 *60;
-        alert('afstand: ' + dist.toFixed(4)  + ' km \n' +
-                'time: ' + time + ' s \n'+
-                'speed:' + speed.toFixed(4) + ' km/u');
-        // alert(speed);
-        var element = document.getElementById('info');
-
-        // $("#info").html('Acceleration X: ' + acceleration.x + '<br />' +
-        //                    'Acceleration Y: ' + acceleration.y + '<br />' +
-        //                    'Acceleration Z: ' + acceleration.z + '<br />' +
-        //                    'Timestamp: ' + acceleration.timestamp + '<br />');
+        // dist=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6),'K');
+        // var time = Math.floor((position.timestamp-current.time)/1000);
+        // var speed = (dist / time ) * 60 *60;
+        // alert('afstand: ' + dist.toFixed(4)  + ' km \n' +
+        //         'time: ' + time + ' s \n'+
+        //         'speed:' + speed.toFixed(4) + ' km/u');
 
           current.lat  = position.coords.latitude;
           current.lat  = current.lat.toFixed(6);
@@ -126,4 +114,28 @@ function checkStartLocation(){
         fadeOut(sounds.endSound);
         $("#info").html("almost home");
     }
+}
+
+function speedCheck(){
+    // onSuccess Callback
+    //   This method accepts a `Position` object, which contains
+    //   the current GPS coordinates
+    //
+    function onSuccess(position) {
+        var element = document.getElementById('info');
+        element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
+                            'Longitude: ' + position.coords.longitude     + '<br />' +
+                            'speed: ' + position.speed     + '<br />';
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+    // Options: throw an error if no update is received every 30 seconds.
+    //
+    var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 30000 });
 }

@@ -33,22 +33,11 @@ var app = {
         $("#play").click(function(){
             start();
         });
-        $("#accel").click(function(){
-            test();
-            var watchID = navigator.accelerometer.watchAcceleration(onSuccessAccel, onErrorAccel, optionsAccel);
+        $("#speed").click(function(){
+            speedCheck();
         });
         $("#stop").click(function(){
-            $("#info").html("Stopped");
-            sounds.song1.stop();
-            clearInterval(evenIntervel);
-            clearTimeOut(timeOut);
-
-            $.each( locations, function( key, value ) {
-                value.passed = null;
-            });
-            $.each( sounds, function( key, value ) {
-                value.passed = null;
-            });
+            stopPlaying();
         });
 
     },
@@ -94,4 +83,18 @@ function start(){
         // }
         //     counter++;
     }
+}
+
+function stopPlaying(){
+    $("#info").html("Stopped");
+    sounds.song1.stop();
+    clearInterval(evenIntervel);
+    clearTimeOut(timeOut);
+
+    $.each( locations, function( key, value ) {
+        value.passed = null;
+    });
+    $.each( sounds, function( key, value ) {
+        value.passed = null;
+    });
 }
