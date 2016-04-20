@@ -30,5 +30,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-gpslocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-gpslocation"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }
