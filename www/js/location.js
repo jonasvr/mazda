@@ -122,10 +122,22 @@ function speedCheck(){
     //   the current GPS coordinates
     //
     function onSuccess(position) {
+        dist=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6),'K');
+        var time = Math.floor((position.timestamp-current.time)/1000);
+        var speed = (dist / time ) * 60 *60;
+        // alert('afstand: ' + dist.toFixed(4)  + ' km \n' +
+        //         'time: ' + time + ' s \n'+
+        //         'speed:' + speed.toFixed(4) + ' km/u');
         var element = document.getElementById('info');
         element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
                             'Longitude: ' + position.coords.longitude     + '<br />' +
-                            'speed: ' + position.coords.speed     + '<br />';
+                            'speed: ' + speed.toFixed(4)    + ' km/u<br />';
+
+                            current.lat  = position.coords.latitude;
+                            current.lat  = current.lat.toFixed(6);
+                            current.long   = position.coords.longitude;
+                            current.long  = current.long.toFixed(6);
+                            current.time = position.timestamp;
     }
 
     // onError Callback receives a PositionError object
