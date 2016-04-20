@@ -125,7 +125,7 @@ function speedCheck(){
         var element = document.getElementById('info');
         element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
                             'Longitude: ' + position.coords.longitude     + '<br />' +
-                            'speed: ' + position.speed     + '<br />';
+                            'speed: ' + position.coords.speed     + '<br />';
     }
 
     // onError Callback receives a PositionError object
