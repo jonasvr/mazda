@@ -168,6 +168,19 @@ function speedCheck(){
                             current.long   = position.coords.longitude;
                             current.long  = current.long.toFixed(6);
                             current.time = position.timestamp;
+                            var url = "https://mzd-jonasvr.c9users.io/tag/"+current.lat+"/"+current.long;
+                            console.log(url);
+                            $.ajax({ //gegevens gaan ophalen
+                                type:'GET',
+                                url: url,
+                                success:function(data){
+                                    console.log(data);
+                                }});
+
+                                // var url = "http://vanreethjo.tdlinx.wtf/tags/"+current.lat+"/"+current.long;
+                                // $.getJSON({ //gegevens gaan ophalen
+                                //     url
+                                //     });
     }
 
     // onError Callback receives a PositionError object
