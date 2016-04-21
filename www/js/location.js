@@ -168,7 +168,7 @@ function speedCheck(){
                             current.long   = position.coords.longitude;
                             current.long  = current.long.toFixed(6);
                             current.time = position.timestamp;
-                            var url = "https://mzd-jonasvr.c9users.io/tag/"+current.lat+"/"+current.long;
+                            var url = "https://mzd-jonasvr.c9users.io/tag/"+current.lat+"/"+current.long+"/"+speed;
                             console.log(url);
                             $.ajax({ //gegevens gaan ophalen
                                 type:'GET',
