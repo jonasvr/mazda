@@ -1,12 +1,3 @@
-var eventInterval = null;
-var timeOut = null;
-var timeTO = 2*60*1000; // 2 minuten
-var timeInterval = 3 * 60 * 1000; // 3 minuten
-var timing = 1 * 10 * 1000;
-// var time = 4000;
-
-counter=3;
-
 
 // location var
 var app = {
@@ -31,13 +22,16 @@ var app = {
         // var watchID = navigator.accelerometer.watchAcceleration(onSuccessAccel, onErrorAccel, optionsAccel);
         // console.log(watchID);
         $("#play").click(function(){
+            console.log('start');
             start();
         });
-        $("#speed").click(function(){
-            speedCheck();
-        });
+
         $("#stop").click(function(){
             stopPlaying();
+        });
+
+        $("#test").click(function(){
+            forecast();
         });
 
     },
@@ -56,39 +50,61 @@ var app = {
 };
 
 function start(){
+    console.log('in');
+    $("#info").html("Started");
     options = { enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccessStart, onError,options); //startlocation opslaan.
     sounds.song1.play();
+    // wachten met zoeken naar event en daarna om bepaalde tijd zoeken naar event
     timeOut =  setTimeout(function(){
-        evenIntervel = setInterval(function(){
-            selectEvent();
-        },4000)
-    },1000);
+        evenInterval = setInterval(function(){
+            if (pauze == 0) {
+                selectEvent();
+            }
+        },timeInterval)
+    },timeTO);
+
+    // checken voor events die nog niet zijn afgespeeld maar wel moeten spelen
+    // => !! als deze iets probeert af te spelen tijdens er iets anders bezig is gaat het weer een "var priorityTime" duren
+    priorityInteval = setInterval(function(){
+        $.each(sounds, function(key,value){
+            if(value.priority == 1 && value.passed == null)
+            {
+                pauze = 1;
+                fadeOut(value);
+                setTimeOut(function(){pauze = 0}, timeTO);
+                return false;
+            }
+        });
+    },priorityTime);
 
 
-    $("#info").html("Started");
+    // events checken en ze een beurt rol geven.
+    // niet steeds zelfde soort berichten
+    // mogelijkheid tot manipulatie
     function selectEvent()
     {
         currentLocation();
-        // switch (counter%3) {
-        //     case 0:
-        //         currentLocation();
-        //         break;
-        //     case 1:
-        //         checkWeather();
-        //         break;
-        //     case 2:
-        //         checkStartLocation();
-        //         break;
-        // }
-        //     counter++;
+        switch (counter%3) {
+            case 0:
+                currentLocation();
+                break;
+            case 1:
+                checkWeather();
+                break;
+            case 2:
+                checkStartLocation();
+                break;
+        }
+            counter++;
     }
 }
 
 function stopPlaying(){
     $("#info").html("Stopped");
     sounds.song1.stop();
-    clearInterval(evenIntervel);
+    clearInterval(evenInterval);
+    clearInterval(priorityInteval);
     clearTimeOut(timeOut);
 
     $.each( locations, function( key, value ) {

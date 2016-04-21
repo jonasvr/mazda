@@ -1,15 +1,35 @@
+// http://gratisweerdata.buienradar.nl/
+function forecast(){
+    var url = "http://gps.buienradar.nl/getrr.php?lat="+current.lat+"&lon=" + current.long;
+    $.ajax({ //gegevens gaan ophalen
+        type:'GET',
+        url: url,
+        success:function(data){
+            // console.log(data);s
+            data = data.split("\n");
+            $.each(data,function(i,value){
+                neerslag = value.split("|");
+                console.log(parseInt(neerslag[0]));
+                if(parseInt(neerslag[0])>50)
+                {
+                    fadeOut(sounds.weer);
+                    return false;
+                }
+            });
+        }});
+}
+
+
+
 function checkWeather(){
-    // var weather = null;
-    // var temp_c = null;
-    // console.log('in weer');
     $.ajax({
+        // api aanspreken en huidige situatie opvragen
           url : "http://api.wunderground.com/api/456208c8d6bbf92f/conditions/q/Belgium/Antwerp.json",
           dataType : "jsonp",
           success : function(parsed_json) {
-              console.log('weather update');
              var weather = parsed_json['current_observation']['weather'];
              var temp_c = parsed_json['current_observation']['temp_c'];
-             var message = 0;
+            //  type weer aan boodschap linken
               switch(weather) {
                   case "Partly Cloudy":
                           fadeOut(sounds.weer);

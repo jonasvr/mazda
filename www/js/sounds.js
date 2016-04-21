@@ -1,44 +1,21 @@
-var song1           = null;
-var sounds = {
-    song2           : {duration:null, media:null, passed:null},
-    song3           : {duration:null, media:null, passed:null},
-    td              : {duration:null, media:null, passed:null},
-    weer            : {duration:null, media:null, passed:null},
-    snelheid        : {duration:null, media:null, passed:null},
-    albert          : {duration:null, media:null, passed:null},
-    endSound        : {duration:null, media:null, passed:null},
-};
-
-
-
-//volume control
-var volume = 1.0;
-var fadeseconds=3;  // number of fadeSeconds
-var fadeStep = 1 / (fadeseconds * 10);
-
-var playing = 0;
-var pauseSound = 1 * 10 * 1000;
-
 //song functions
 function fadeOut(snd){
+    // als de sound nog niet gepasseerd is  en er is niet anders bezig begi
     if (playing == 0 && snd.passed == null) { //prevent overlapping songs
         console.log('fading');
-        snd.media.play();
+        setTimeout(snd.media.play(),500);
         snd.passed = 1;
         playing = 1;
         var fadingout = setInterval(do_fout, 100);
 
             function do_fout() {
                 if (volume > 0) {
-                    // console.log('down');
                     volume = volume - fadeStep;
                     setTimeout(sounds.song1.setVolume(volume),5000);  // media is your audio object
-                }
-               else {
-                //    console.log('done');
+                }else {
+
                    clearInterval(fadingout);
-                   var fadeI = setTimeout(fadeIn, snd.duration-fadeseconds*1000);
-                //    snd.passed=1;
+                   var fadeI = setTimeout(fadeIn, snd.duration-2500);
                }
             }
     }
