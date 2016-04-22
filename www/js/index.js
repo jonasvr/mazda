@@ -19,8 +19,6 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         loadSong();
-        // var watchID = navigator.accelerometer.watchAcceleration(onSuccessAccel, onErrorAccel, optionsAccel);
-        // console.log(watchID);
         $("#play").click(function(){
             console.log('start');
             start();
@@ -28,10 +26,6 @@ var app = {
 
         $("#stop").click(function(){
             stopPlaying();
-        });
-
-        $("#test").click(function(){
-            forecast();
         });
 
     },
@@ -100,6 +94,7 @@ function start(){
     }
 }
 
+//alles resetten
 function stopPlaying(){
     $("#info").html("Stopped");
     sounds.song1.stop();

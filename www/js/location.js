@@ -10,13 +10,6 @@ function currentLocation()
 // current GPS coordinates
 //
 var onSuccess = function(position) {
-        // dist=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6),'K');
-        // var time = Math.floor((position.timestamp-current.time)/1000);
-        // var speed = (dist / time ) * 60 *60;
-        // alert('afstand: ' + dist.toFixed(4)  + ' km \n' +
-        //         'time: ' + time + ' s \n'+
-        //         'speed:' + speed.toFixed(4) + ' km/u');
-
           current.lat  = position.coords.latitude;
           current.lat  = current.lat.toFixed(6);
           current.long   = position.coords.longitude;
@@ -60,12 +53,9 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 // locaties vergelijken of ze in de buurt zijn..
 function checkLocations(){
-    // alert('checking');
-    var message = 0;
-
         $.each( locations, function( key, value ) {
             var dis = distance(current.lat,current.long,value.lat,value.long,'K');
-            if (dis < .5) { //binnen bereik en is nog niet gebruikt
+            if (dis < maxDistance) { //binnen bereik en is nog niet gebruikt
                 switch (key) {
                     case 'albert':
                         fadeOut(sounds.albert);
@@ -80,7 +70,7 @@ function checkLocations(){
         });
 }
 
- //als we op het einde komen
+ //begin punt opslaan voor als we op het einde van de rit komen (beginpunt terug)
 function checkStartLocation(){
     var dis = distance(current.lat,current.long,startLocation.lat,startLocation.long,'K');
     if (dis < .5 && startLocation.passed == null) { //nog checken op niet gebruikt.
@@ -89,9 +79,9 @@ function checkStartLocation(){
     }
 }
 
-
+// functie word niet gebruikt => was om te testen hoe snel er werd gegaan en hoe nauwkeurig de locatie werd bepaald
 function speedCheck(){
-    console.log('in');
+    console.log('in speedCheck');
     // onSuccess Callback
     //   This method accepts a `Position` object, which contains
     //   the current GPS coordinates
@@ -100,9 +90,6 @@ function speedCheck(){
         dist=distance(current.lat,current.long,position.coords.latitude.toFixed(6),position.coords.longitude.toFixed(6),'K');
         var time = Math.floor((position.timestamp-current.time)/1000);
         var speed = (dist / time ) * 60 *60;
-        // alert('afstand: ' + dist.toFixed(4)  + ' km \n' +
-        //         'time: ' + time + ' s \n'+
-        //         'speed:' + speed.toFixed(4) + ' km/u');
         var element = document.getElementById('info');
         element.innerHTML = 'Latitude: '  + position.coords.latitude      + '<br />' +
                             'Longitude: ' + position.coords.longitude     + '<br />' +

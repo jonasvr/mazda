@@ -11,8 +11,9 @@ var timeInterval = 1 * 10 * 1000; // 3 minuten
 var priorityTime = 10 * 60 * 1000;
 var timing = 1 * 10 * 1000;
 
-var counter=3;
+var counter = 3;
 var pauze = 0;
+
 
 // locations.js===============================================================//
 var maxDistance = 0.5 // => in km
@@ -63,3 +64,7 @@ var fadeStep = 1 / (fadeseconds * 10);
 
 var playing = 0;
 var pauseSound = 1 * 10 * 1000;
+
+
+// weather.js ===============================================================//
+var weatherSwitch = 0;
